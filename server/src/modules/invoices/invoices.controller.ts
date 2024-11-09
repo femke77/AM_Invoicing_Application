@@ -11,56 +11,74 @@ import {
   Query,
   Req,
   UseGuards,
-} from "@nestjs/common";
-import { InvoicesService } from "./invoices.service";
-import { Prisma } from "@prisma/client";
-import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiBearerAuth } from "@nestjs/swagger";
+} from '@nestjs/common';
+import { InvoicesService } from './invoices.service';
+import { Prisma } from '@prisma/client';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiQuery,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { Request } from 'express';
-import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
-import { InvoiceDto } from "./dto/invoice.dto";
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { InvoiceDto } from './dto/invoice.dto';
 
-@ApiTags("invoices")
-@ApiBearerAuth() 
+@ApiTags('invoices')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller("invoices")
+@Controller('invoices')
 export class InvoicesController {
   constructor(private readonly invoicesService: InvoicesService) {}
 
   @Get()
   @ApiOperation({ summary: 'Get all invoices' })
-  @ApiResponse({ status: 200, description: 'Successful operation', type: [InvoiceDto] })
+  @ApiResponse({
+    status: 200,
+    description: 'Successful operation',
+    type: [InvoiceDto],
+  })
   @ApiQuery({ name: 'skip', required: false, type: Number })
   @ApiQuery({ name: 'take', required: false, type: Number })
   @ApiQuery({ name: 'cursor', required: false, type: Number })
   @ApiQuery({ name: 'where', required: false, type: Object })
   @ApiQuery({ name: 'orderBy', required: false, type: Object })
   async getInvoices(
-    @Req() req: Request, 
+    @Req() req: Request,
     @Query('where') where?: Prisma.InvoiceWhereInput,
-    @Query('orderBy') orderBy?: Prisma.InvoiceOrderByWithRelationInput
+    @Query('orderBy') orderBy?: Prisma.InvoiceOrderByWithRelationInput,
   ) {
-    const { skip, take } = req.pagination || {}; 
+    const { skip, take } = req.pagination || {};
 
     return this.invoicesService.invoices({
-      skip, 
-      take, 
+      skip,
+      take,
       cursor: req.query.cursor ? { id: +req.query.cursor } : undefined,
       where,
       orderBy,
     });
   }
 
-  @Get("total")
+  @Get('total')
   @ApiOperation({ summary: 'Get total of all invoices' })
-  @ApiResponse({ status: 200, description: 'Successful operation', type: Number })
+  @ApiResponse({
+    status: 200,
+    description: 'Successful operation',
+    type: Number,
+  })
   async getTotalInvoiceAmount(): Promise<number> {
     return this.invoicesService.getTotalInvoiceAmount();
   }
 
-  @Get(":id")
+  @Get(':id')
   @ApiOperation({ summary: 'Get single invoice by id' })
-  @ApiResponse({ status: 200, description: 'Successful operation', type: [InvoiceDto] })
-  async getInvoice(@Param("id") id: string) {
+  @ApiResponse({
+    status: 200,
+    description: 'Successful operation',
+    type: [InvoiceDto],
+  })
+  async getInvoice(@Param('id') id: string) {
     return this.invoicesService.invoice({ id: +id });
   }
 
@@ -72,7 +90,6 @@ export class InvoicesController {
   // create(@Body() createInvoiceDto: CreateInvoiceDto) {
   //   return this.invoicesService.createInvoice(createInvoiceDto);
   // }
-
 
   // @Patch(":id")
   // update(@Param("id") id: string, @Body() updateInvoiceDto: UpdateInvoiceDto) {
