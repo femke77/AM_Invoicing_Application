@@ -1,13 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../prisma-service/prisma.service';
-import { Invoice, Prisma } from '@prisma/client';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../../prisma-service/prisma.service";
+import { Invoice, Prisma } from "@prisma/client";
+import * as dayjs from "dayjs";
 
 @Injectable()
 export class InvoicesService {
   constructor(private prisma: PrismaService) {}
 
   async invoice(
-    invoiceWhereUniqueInput: Prisma.InvoiceWhereUniqueInput,
+    invoiceWhereUniqueInput: Prisma.InvoiceWhereUniqueInput
   ): Promise<Invoice | null> {
     return this.prisma.invoice.findUnique({
       where: invoiceWhereUniqueInput,
@@ -58,11 +59,14 @@ export class InvoicesService {
     });
   }
 
-  async getTotalInvoiceAmount(): Promise<number> {
+  async getTotalInvoiceAmount(dueDate?: string): Promise<number> {
+    const whereClause = dueDate ? { due_date: { contains: dueDate } } : {};
+
     const total = await this.prisma.invoice.aggregate({
       _sum: {
         amount: true,
       },
+      where: whereClause,
     });
 
     return total._sum.amount || 0;
