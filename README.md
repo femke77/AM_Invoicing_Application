@@ -75,10 +75,13 @@ If you take down the compose and want to bring it back up, please comment out or
   Not deployed
 
 ## Screenshots
-![screenshot-2](assets/images/login.png)
-![screenshot-0](assets/images/error.png)
-![screenshot-1](assets/images/invoices.png)
-![screenshot-3](assets/images/modal.png)
+![login](assets/images/login.png)
+
+![error](assets/images/error.png)
+
+![pagination](assets/images/pagination.png)
+
+![modal](assets/images/modal.png)
 
 
 ______________________________________________________________________________________
