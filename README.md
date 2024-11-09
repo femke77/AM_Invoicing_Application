@@ -42,8 +42,6 @@ This application is for a showcase of skills only. This is not a real applicatio
 
   [Tests](#tests) 
 
-  [Credits](#credits)
-
   [Questions](#questions)
   
   ## Installation 
