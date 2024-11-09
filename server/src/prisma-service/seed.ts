@@ -34,8 +34,8 @@ async function main() {
 
   // Create random invoices
   for (const user of users) {
-    for (let j = 0; j < 3; j++) {
-      // Each user gets 3 invoices
+    for (let j = 0; j < 4; j++) {
+      // Each user gets 4 invoices
       await prisma.invoice.create({
         data: {
           vendor_name: faker.company.name(),
