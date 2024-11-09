@@ -17,12 +17,13 @@
 
   This application uses NestJS for server, PostgreSQL and Prisma for the database and ORM respectively, React for the client, React Router Dom for the routing with createBrowserRouter, Zod for client side data verification (login page only), RTK for the client state management and React Query for the server state management on the client side (caching) with axios for fetching. The authentication is JWT Bearer tokens. Docker is used to run the app and provides an image for the database. Swagger is used for API documentation. FakerJS provides fake invoice data and fake users to associate with the invoices.
 
-  ***FOR EASE OF USE ONLY*** <br/>
-  The .env is provided.
+  The development version of the app uses vite to avoid CORS issues and otherwise make development fast and easy. The production discards the vite dev server and serves static assets via Nest's useStaticAssets feature. It finds the dist folder in the client volume. 
 
+  ***FOR EASE OF USE ONLY*** <br/>
+ 
   Code for bcrypt is implemented but commented out.
 
-  The database credentials are exposed in the compose.yml. 
+  The database credentials as well as all environment variables are exposed in the compose.yml. If I have time I will hide them, but it's not very important at this time.
 
 This application is for a showcase of skills only. This is not a real application.
 
@@ -51,6 +52,8 @@ This application is for a showcase of skills only. This is not a real applicatio
   ```
  docker compose up
   ```
+
+  Please be patient when you see > nest start --host 0.0.0.0 as it takes a moment to start the server. Await the confirmation in green that Nest application successfully started. 
   
   ## Usage 
   Using your browser, visit
@@ -67,6 +70,8 @@ This application is for a showcase of skills only. This is not a real applicatio
  localhost:3001/api/docs
   ```
 to interact with the api via Swagger documentation. Click the Authorize button and provide a JWT token from the login endpoint to interact with protected routes. Otherwise, example data is provided for ease of understanding.
+
+If you take down the compose and want to bring it back up, please comment out or uniquely change the one user in the seed.ts file on server with the above credentials or you will get a prisma error and won't be able to bring the app back up. Just find the "FIXME" in server/prisma-service/seed.ts
 
 ## Deployed Link
   Not deployed

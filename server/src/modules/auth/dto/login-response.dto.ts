@@ -12,5 +12,4 @@ export class LoginResponseDto {
 
   @ApiProperty({ example: 'John Doe', required: false })
   name?: string;
-
 }

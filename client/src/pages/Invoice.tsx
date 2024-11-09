@@ -10,10 +10,7 @@ export default function Invoice() {
       {userData && (
         <h2>
           Wecome,{' '}
-          {`${userData
-            .substring(0, 1)
-            .toUpperCase()}${userData.substring(1)}`}
-          !
+          {`${userData.substring(0, 1).toUpperCase()}${userData.substring(1)}`}!
         </h2>
       )}
 

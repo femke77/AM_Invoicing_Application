@@ -13,11 +13,11 @@
 const errors = {
   loginFailed: {
     statusCode: 401,
-    message: "There was a problem with your login, try again.",
-    error: "Unauthorized",
+    message: 'There was a problem with your login, try again.',
+    error: 'Unauthorized',
     details: {
       requiredAuth: true,
-      authType: "Bearer Token",
+      authType: 'Bearer Token',
     },
   },
 };

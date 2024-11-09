@@ -1,14 +1,14 @@
-import { Injectable } from "@nestjs/common";
-import { PrismaService } from "../../prisma-service/prisma.service";
-import { User, Prisma } from "@prisma/client";
-import * as bcrypt from "bcryptjs";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../prisma-service/prisma.service';
+import { User, Prisma } from '@prisma/client';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async user(
-    userWhereUniqueInput: Prisma.UserWhereUniqueInput
+    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: userWhereUniqueInput,

@@ -3,19 +3,15 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginSuccess, loginFailure, startLoading } from '../state/authSlice';
 
-
 interface LoginCredentials {
   email: string;
   password: string;
 }
 
 const loginUser = async (credentials: LoginCredentials) => {
- 
-    
-    const response = await axios.post('/api/auth/login', credentials);
-    
-    return response.data;
- 
+  const response = await axios.post('/api/auth/login', credentials);
+
+  return response.data;
 };
 
 export const useLogin = () => {
@@ -31,7 +27,7 @@ export const useLogin = () => {
       localStorage.setItem('token', data.token);
     },
     onError: (error: any) => {
-      console.log(error.response.data.message); 
+      console.log(error.response.data.message);
       dispatch(loginFailure(error.response.data.message));
     },
   });

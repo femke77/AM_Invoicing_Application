@@ -6,7 +6,6 @@ import { Invoice } from '../interfaces/Invoice';
 import dayjs from 'dayjs';
 
 const InvoicesList: React.FC = () => {
-
   const { data: invoices, isLoading, error } = useInvoices();
   const [selectedInvoiceId, setSelectedInvoiceId] = useState<number | null>(
     null,
@@ -15,7 +14,6 @@ const InvoicesList: React.FC = () => {
 
   const { data: selectedInvoice, isLoading: isInvoiceLoading } =
     useInvoiceById(selectedInvoiceId);
-
 
   const handleInvoiceClick = (id: number) => {
     setSelectedInvoiceId(id);

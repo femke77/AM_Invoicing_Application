@@ -1,20 +1,18 @@
-import { Injectable } from "@nestjs/common";
-import { PrismaService } from "../../prisma-service/prisma.service";
-import { Invoice, Prisma } from "@prisma/client";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../prisma-service/prisma.service';
+import { Invoice, Prisma } from '@prisma/client';
 
 @Injectable()
 export class InvoicesService {
   constructor(private prisma: PrismaService) {}
 
   async invoice(
-    invoiceWhereUniqueInput: Prisma.InvoiceWhereUniqueInput
+    invoiceWhereUniqueInput: Prisma.InvoiceWhereUniqueInput,
   ): Promise<Invoice | null> {
     return this.prisma.invoice.findUnique({
       where: invoiceWhereUniqueInput,
-      include: {user: true},
-      
+      include: { user: true },
     });
-    
   }
 
   async invoices(params: {
@@ -23,7 +21,7 @@ export class InvoicesService {
     cursor?: Prisma.InvoiceWhereUniqueInput;
     where?: Prisma.InvoiceWhereInput;
     orderBy?: Prisma.InvoiceOrderByWithRelationInput;
-  },): Promise<Invoice[]> {
+  }): Promise<Invoice[]> {
     const { skip, take, cursor, where, orderBy } = params;
     return this.prisma.invoice.findMany({
       skip,
@@ -32,7 +30,7 @@ export class InvoicesService {
       where,
       orderBy,
       include: {
-        user: true, 
+        user: true,
       },
     });
   }

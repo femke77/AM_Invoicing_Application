@@ -10,7 +10,6 @@ export const useLogout = () => {
   const handleLogout = () => {
     dispatch(logout());
 
-
     navigate('/');
   };
 

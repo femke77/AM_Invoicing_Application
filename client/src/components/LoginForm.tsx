@@ -10,18 +10,18 @@ import loginSchema from '../schemas/LoginSchema';
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const { mutateAsync: login } = useLogin();
-  
+
   const [formState, setFormState] = useState<LoginSchema>({
     email: '',
     password: '',
   });
-  
+
   const [errors, setErrors] = useState<{
     email?: string;
     password?: string;
     message?: string;
   }>({});
-  
+
   const loggedIn = useSelector(
     (state: RootState) => state.auth.isAuthenticated,
   );
@@ -41,8 +41,12 @@ const LoginForm: React.FC = () => {
         });
         setErrors(fieldErrors);
       } else {
-        console.log(error);  
-        setErrors({ message: error.response.data.message || 'An error occurred processing your request, try again later.' });
+        console.log(error);
+        setErrors({
+          message:
+            error.response.data.message ||
+            'An error occurred processing your request, try again later.',
+        });
       }
     }
   };

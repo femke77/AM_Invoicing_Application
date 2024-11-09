@@ -12,7 +12,7 @@ import { UsersService } from './users.service';
 import { Prisma } from '@prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from "@nestjs/swagger";
+import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { UserDto } from './dto/user.dto';
 
 @ApiTags('users')
@@ -23,16 +23,15 @@ export class UsersController {
   // Get all users
   @Get()
   @ApiOperation({ summary: 'Get all users' })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Successful operation',
-    type: [UserDto]
+    type: [UserDto],
   })
   // add addional ApiReponse for errors, etc..
   @ApiQuery({ name: 'skip', required: false, type: Number })
   @ApiQuery({ name: 'take', required: false, type: Number })
   @ApiQuery({ name: 'cursor', required: false, type: Number })
-  
   async getUsers(
     @Query('skip') skip?: string,
     @Query('take') take?: string,
@@ -55,7 +54,7 @@ export class UsersController {
     return this.usersService.user({ id: +id });
   }
 
- // Create a new user
+  // Create a new user
   @Post()
   @ApiResponse({ status: 201, description: 'User created.' })
   async createUser(@Body() createUserDto: CreateUserDto) {
@@ -81,7 +80,6 @@ export class UsersController {
   }
 }
 
-
 // Using 'nest g resource users' created these for me, I didn't do any
 // unnecessary extra work. In general, I don't code what is not asked of me
-// and/or what is not needed for good efficiency and time management. 
+// and/or what is not needed for good efficiency and time management.
