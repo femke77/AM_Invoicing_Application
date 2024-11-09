@@ -88,7 +88,11 @@ ________________________________________________________________________________
 
 
 ## Known Issues 
-None
+Currently depending on the pagination limit set in the InvoiceList component and the number of invoices, you might get a blank page before the next button disables. 
+
+Currently no way to jump to a page.
+
+Considerations: Offset pagination does not scale well. I am assuming that the number of invoices won't be so high that this would be an issue but if it did become very high, this would have to be changed.
 
 ## How To Contribute 
   

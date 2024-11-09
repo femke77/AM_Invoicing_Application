@@ -22,13 +22,13 @@ async function main() {
   // matches the swagger example for ease of testing
   // FIXME comment this out if you want to bring the compose up again after the initial seed.
   
-  // await prisma.user.create({
-  //   data: {
-  //     email: 'user@example.com',
-  //     password: 'password123',
-  //     name: 'user',
-  //   },
-  // });
+  await prisma.user.create({
+    data: {
+      email: 'user@example.com',
+      password: 'password123',
+      name: 'user',
+    },
+  });
 
   console.log(users);
 
