@@ -53,7 +53,7 @@ This application is for a showcase of skills only. This is not a real applicatio
  docker compose up
   ```
 
-  Please be patient when you see > nest start --host 0.0.0.0 as it takes a moment to start the server. Await the confirmation in green that Nest application successfully started. 
+  Please be patient when you see > nest start --host 0.0.0.0 as it takes a moment to start the server. Await the confirmation in green that Nest application successfully started, and it may take a few moments beyond this. 
   
   ## Usage 
   Using your browser, visit
