@@ -69,7 +69,11 @@ This application is for a showcase of skills only. This is not a real applicatio
   ```
 to interact with the api via Swagger documentation. Click the Authorize button and provide a JWT token from the login endpoint to interact with protected routes. Otherwise, example data is provided for ease of understanding.
 
-If you take down the compose and want to bring it back up, please comment out or uniquely change the one user in the seed.ts file on server with the above credentials or you will get a prisma error and won't be able to bring the app back up. Just find the "FIXME" in server/prisma-service/seed.ts
+To take down the compose and clear the volumes:
+```
+docker compose down -v
+```
+Do not try to do docker compose up a second time without clearing the volumes or you will have a prisma error.  
 
 ## Deployed Link
   Not deployed

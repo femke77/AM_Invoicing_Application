@@ -60,7 +60,7 @@ export class InvoicesController {
     });
   }
 
-  @Get("total-by-due-date")
+  @Get("total")
   @ApiOperation({ summary: "Get total of all invoices by due date" })
   @ApiResponse({
     status: 200,
