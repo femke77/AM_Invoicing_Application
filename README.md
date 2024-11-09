@@ -87,6 +87,8 @@ Do not try to do docker compose up a second time without clearing the volumes or
 
 ![modal](assets/images/modal.png)
 
+![swagger total](assets/images/swagger-total.png)
+
 
 ______________________________________________________________________________________
 
