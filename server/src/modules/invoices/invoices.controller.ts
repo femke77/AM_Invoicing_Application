@@ -27,10 +27,20 @@ import { InvoiceDto } from "./dto/invoice.dto";
 
 @ApiTags("invoices")
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Controller("invoices")
 export class InvoicesController {
   constructor(private readonly invoicesService: InvoicesService) {}
+
+  private parseOrderBy(
+    orderBy: string
+  ): Prisma.InvoiceOrderByWithRelationInput {
+    const orderParams = orderBy.split(":");
+    const field = orderParams[0];
+    const direction = orderParams[1]?.toUpperCase() === "DESC" ? "desc" : "asc";
+
+    return { [field]: direction };
+  }
 
   @Get()
   @ApiOperation({ summary: "Get all invoices" })
@@ -46,18 +56,44 @@ export class InvoicesController {
   @ApiQuery({ name: "orderBy", required: false, type: Object })
   async getInvoices(
     @Req() req: Request,
-    @Query("where") where?: Prisma.InvoiceWhereInput,
-    @Query("orderBy") orderBy?: Prisma.InvoiceOrderByWithRelationInput
+    @Query("cursor") cursor?: Prisma.InvoiceWhereUniqueInput,
+    @Query("where") where?: string,
+    @Query("orderBy") orderBy?: string
   ) {
     const { skip, take } = req.pagination || {};
+    let parsedWhere: Prisma.InvoiceWhereInput | undefined = undefined;
+
+    if (where) {
+      try {
+        parsedWhere = JSON.parse(where);
+      } catch (error) {
+        throw new Error(
+          "Invalid 'where' parameter. It must be a valid JSON string."
+        );
+      }
+    }
+
+    const parsedOrderBy: Prisma.InvoiceOrderByWithRelationInput = orderBy
+      ? this.parseOrderBy(orderBy)
+      : undefined;
 
     return this.invoicesService.invoices({
       skip,
       take,
-      cursor: req.query.cursor ? { id: +req.query.cursor } : undefined,
-      where,
-      orderBy,
+      cursor: cursor ? { id: +cursor } : undefined,
+      where: parsedWhere,
+      orderBy: parsedOrderBy,
     });
+  }
+
+  @Get("long")
+  async getLongRunningTask(): Promise<{jobId: string, message:string}> {
+    return this.invoicesService.longTask();
+  }
+
+  @Get("long-status/:id")
+  async getLongRunningTaskStatus(@Param("id") id: string): Promise<{status: string, result?: string}>{
+    return this.invoicesService.getTaskStatus(id)
   }
 
   @Get("total")
@@ -68,9 +104,9 @@ export class InvoicesController {
     type: Number,
   })
   @ApiQuery({
-    name: 'dueDate',
+    name: "dueDate",
     required: false,
-    description: 'Filter invoices by due date (format: YYYY-MM-DD)',
+    description: "Filter invoices by due date (format: YYYY-MM-DD)",
     type: String,
   })
   async getTotalInvoiceAmountByDueDate(

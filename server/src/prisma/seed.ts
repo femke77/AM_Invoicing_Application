@@ -7,7 +7,7 @@ async function main() {
   const users = [];
   for (let i = 0; i < 10; i++) {
     // not hashing here or we won't be able to log in with these users
-    // to test hashing, create a user through the API
+    // to test hashing, create a user through the API (turned off)
     users.push(
       await prisma.user.create({
         data: {

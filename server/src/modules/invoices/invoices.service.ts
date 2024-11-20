@@ -1,11 +1,16 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "../../prisma-service/prisma.service";
+import { PrismaService } from "../../prisma/prisma.service";
 import { Invoice, Prisma } from "@prisma/client";
-import * as dayjs from "dayjs";
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 
 @Injectable()
 export class InvoicesService {
-  constructor(private prisma: PrismaService) {}
+  
+  constructor(private prisma: PrismaService,
+    @InjectQueue('taskQueue') private readonly taskQueue: Queue
+
+   ) {}
 
   async invoice(
     invoiceWhereUniqueInput: Prisma.InvoiceWhereUniqueInput
@@ -70,5 +75,21 @@ export class InvoicesService {
     });
 
     return total._sum.amount || 0;
+  }
+
+  async longTask(): Promise<{jobId: string, message: string}> {
+    const job = await this.taskQueue.add('longTask', {
+      payload: 'example payload',
+    })
+    console.log(job);
+    
+    return {jobId: job.id, message: "task is queued."};
+  }
+
+  async getTaskStatus(jobId: string): Promise<{status: string, result?: string}> {
+    const job = await this.taskQueue.getJob(jobId);
+    if (!job) return { status: 'not found' };
+    const status = await job.getState();
+    return { status, result: job.data.payload };
   }
 }

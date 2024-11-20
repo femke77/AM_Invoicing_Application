@@ -15,6 +15,7 @@ services:
       - NODE_ENV=development
       - DATABASE_URL:postgresql://app_user:secretpassword@postgres_app:5432/app_db?schema=public
       - JWT_SECRET="kdjflksdjflkjsdlkfjsdlkfjldskfjlsdkjf3482304948sldjslijfslk"
+      - REDIS_HOST=redis
     depends_on:
       - postgres_app
     networks:
@@ -50,6 +51,24 @@ services:
       - server
     networks:
       - dev_network
- 
+
+  redis:
+    image: redis:latest
+    container_name: redis2
+    volumes: 
+        - db_data:/data
+    ports:
+      - "6379:6379"
+    expose:
+      - 6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+    networks:
+      - dev_network
+      
 networks:
   dev_network:
