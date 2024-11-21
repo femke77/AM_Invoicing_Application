@@ -13,6 +13,9 @@
   
   ## Description  ✏️
   
+  See a recording of the app:
+  [video-link](https://drive.google.com/file/d/1HHnZdm1dq1nQXnaeH_hlZjtigDnflDdS/view?usp=sharing)
+
   An application that will allow a user to login and view invoices. Clicking on an invoice brings up a modal with the invoice details. The user can email the user directly from the modal. 
 
   This application uses NestJS for server, PostgreSQL and Prisma for the database and ORM respectively, React for the client, React Router Dom for the routing with createBrowserRouter, Zod for client side data verification (login page only), RTK for the client state management and React Query for the server state management on the client side (caching) with axios for fetching. The authentication is JWT Bearer tokens. Docker is used to run the app and provides an image for the database. Swagger is used for API documentation. FakerJS provides fake invoice data and fake users to associate with the invoices.
