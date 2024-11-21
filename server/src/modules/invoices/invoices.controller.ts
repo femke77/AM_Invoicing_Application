@@ -3,7 +3,7 @@ import {
   // import { UpdateInvoiceDto } from "./dto/update-invoice.dto";
   Controller,
   Get,
-  // Post,
+  Post,
   // Body,
   // Patch,
   // Delete,
@@ -86,7 +86,7 @@ export class InvoicesController {
     });
   }
 
-  @Get("long")
+  @Post("long")
   async getLongRunningTask(): Promise<{jobId: string, message:string}> {
     return this.invoicesService.longTask();
   }

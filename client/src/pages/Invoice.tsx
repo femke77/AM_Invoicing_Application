@@ -2,6 +2,7 @@ import InvoicesList from '../components/InvoiceList';
 import LogoutButton from '../components/LogoutButton';
 import { useSelector } from 'react-redux';
 import { RootState } from '../state/store';
+import LongTaskSim from '../components/LongTask';
 
 export default function Invoice() {
   const userData = useSelector((state: RootState) => state.auth.userData?.name);
@@ -10,11 +11,15 @@ export default function Invoice() {
       {userData && (
         <h2>
           Wecome,{' '}
-          {`${userData.substring(0, 1).toUpperCase()}${userData.substring(1)}`}!
+          {`${userData
+            .substring(0, 1)
+            .toUpperCase()}${userData.substring(1)}`}
+          !
         </h2>
       )}
 
-      <LogoutButton />
+      <LogoutButton />{" "}
+      <LongTaskSim/>
 
       <InvoicesList />
     </div>

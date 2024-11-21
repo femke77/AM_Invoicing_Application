@@ -81,9 +81,8 @@ export class InvoicesService {
     const job = await this.taskQueue.add('longTask', {
       payload: 'example payload',
     })
-    console.log(job);
     
-    return {jobId: job.id, message: "task is queued."};
+    return {jobId: job.id, message: "task is started!"};
   }
 
   async getTaskStatus(jobId: string): Promise<{status: string, result?: string}> {
