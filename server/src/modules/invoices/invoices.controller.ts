@@ -27,7 +27,7 @@ import { InvoiceDto } from "./dto/invoice.dto";
 
 @ApiTags("invoices")
 @ApiBearerAuth()
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @Controller("invoices")
 export class InvoicesController {
   constructor(private readonly invoicesService: InvoicesService) {}

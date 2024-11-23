@@ -14,7 +14,7 @@
   ## Description  ✏️
   
   See a recording of the app:
-  [video-link](https://drive.google.com/file/d/1HHnZdm1dq1nQXnaeH_hlZjtigDnflDdS/view?usp=sharing)
+  [Video link](https://drive.google.com/file/d/1bmRDS9tfSDmRYKzZqkKSrDkB6C3PiB2J/view?usp=sharing)
 
   An application that will allow a user to login and view invoices. Clicking on an invoice brings up a modal with the invoice details. The user can email the user directly from the modal. 
 
